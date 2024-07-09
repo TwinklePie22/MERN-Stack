@@ -1,8 +1,8 @@
 // backend/index.js
-const express = require('express');
-const cors = require('cors');
-const app = express();
-const port = 9000;
+const express = require('express')
+const cors = require('cors')
+const app = express()
+const port = 9000
 
 app.use(cors());
 
