@@ -10,7 +10,7 @@ const validPassword = "password";
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
   if (username === validUsername && password === validPassword) {
-    res.send(`Welcome ${username}!`);
+    res.status(200).send(`Welcome ${username}!`);
   } else {
     res.status(401).send("Invalid credentials");
   }
@@ -22,7 +22,7 @@ app.get("/profile", (req, res) => {
     age: 25,
     email: "test@example.com",
   };
-  res.json(profile);
+  res.status(200).json(profile);
 });
 
 app.listen(port, () => {
