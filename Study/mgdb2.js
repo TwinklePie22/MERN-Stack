@@ -8,7 +8,7 @@ const books = [
   { title: 'Book 3', author: 'Author C', category: 'Science' }
 ];
 
-MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, client) {
+MongoClient.connect(url, function(err, client) {
   if (err) {
     return console.error('Error occurred while connecting to MongoDB:', err);
   }
