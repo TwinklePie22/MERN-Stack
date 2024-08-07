@@ -1,24 +1,35 @@
-const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017';
-const dbName = 'mydatabase';
+const { MongoClient } = require('mongodb');
 
-MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, client) {
-  if (err) {
-    return console.error('Error occurred while connecting to MongoDB:', err);
-  }
-  
-  console.log('Connected successfully to MongoDB server');
-  const db = client.db(dbName);
-  
-  db.collection('users').insertOne({
-    name: 'John Doe',
-    age: 30
-  }, function(err, result) {
-    if (err) {
-      return console.error('Error occurred while inserting document:', err);
-    }
+async function main() {
+    // Connection URI
+    const uri = "mongodb://localhost:27017";
     
-    console.log('Document inserted successfully');
-    client.close();
-  });
-});
+    // Create a new MongoClient
+    const client = new MongoClient(uri);
+    
+    try {
+        // Connect the client to the server
+        await client.connect();
+        console.log("Connected successfully to server");
+
+        // Connect to the 'mydatabase' database
+        const database = client.db('mydatabase');
+
+        // Create or get the 'Employee' collection
+        const collection = database.collection('Employee');
+
+        // Insert a sample document to create the collection
+        const sampleDocument = { name: "VKS", age: 20 };
+        await collection.insertOne(sampleDocument);
+        console.log("Collection 'Employee' created with sample document");
+
+    } catch (err) {
+        console.error("An error occurred:", err);
+    } finally {
+        // Close the connection to the MongoDB server
+        await client.close();
+    }
+}
+
+// Run the main function
+main().catch(console.error);
